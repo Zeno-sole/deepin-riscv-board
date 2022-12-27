@@ -212,9 +212,6 @@ task:
         git clone --depth=1 -b ${kernel_branch} ${kernel_git} kernel
         pushd kernel
           make CROSS_COMPILE=riscv64-linux-gnu- ARCH=riscv ${kernel_config}
-          if [ -f ../${base_path}/kernelconfig ]; then
-            cp -v ../${base_path}/kernelconfig .config
-          fi
           make CROSS_COMPILE=riscv64-linux-gnu- ARCH=riscv -j$(nproc)
           if [ x"$(cat .config | grep CONFIG_MODULES=y)" = x"CONFIG_MODULES=y" ]; then
             make CROSS_COMPILE=riscv64-linux-gnu- ARCH=riscv INSTALL_MOD_PATH=../rootfs/ modules_install -j$(nproc)
